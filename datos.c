@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "datos.h"
 #include "calculos.h"
+#include "auth.h"  // Incluye auth.h para registrar en la bitácora
 
 void mostrarMenu() {
     printf("\n MENU:\n");
@@ -23,189 +24,202 @@ void mostrarMenu() {
     printf("\n\n ELIJA UNA OPCION: ");
 }
 
-void solicitarDatosFigura(int figura) {
-	double base, altura, lado, lado1, diagonalM, diagonalm, baseM, basem;
-	double radio, longitud, ancho, alto;
-	double area, perimetro, superficie, volumen;
-	int numeroLados;
-	
-	switch (figura) {
-		case 1: // Triángulo
-			printf("Ingrese la base del triangulo: ");
-			scanf("%lf", &base);
-			printf("Ingrese la altura del triangulo: ");
-			scanf("%lf", &altura);
-			printf("Ingrese el primer lado del triangulo: ");
-			scanf("%lf", &lado);
-			printf("Ingrese el segundo lado del triangulo: ");
-			scanf("%lf", &lado1);
+void solicitarDatosFigura(int figura, const char *usuario) {
+    double base, altura, lado, lado1, diagonalM, diagonalm, baseM, basem;
+    double radio, longitud, ancho, alto;
+    double area, perimetro, superficie, volumen;
+    int numeroLados;
 
-			area = areaTriangulo(base, altura);
-			perimetro = perimetroTriangulo(base, lado, lado1);
+    switch (figura) {
+        case 1: // Triángulo
+            registrarBitacora(usuario, "Triángulo");
+            printf("Ingrese la base del triangulo: ");
+            scanf("%lf", &base);
+            printf("Ingrese la altura del triangulo: ");
+            scanf("%lf", &altura);
+            printf("Ingrese el primer lado del triangulo: ");
+            scanf("%lf", &lado);
+            printf("Ingrese el segundo lado del triangulo: ");
+            scanf("%lf", &lado1);
 
-			mostrarResultado(area, perimetro);
-			break;
+            area = areaTriangulo(base, altura);
+            perimetro = perimetroTriangulo(base, lado, lado1);
 
-		case 2: // Paralelogramo
-			printf("Ingrese la base del paralelogramo: ");
-			scanf("%lf", &base);
-			printf("Ingrese la altura del paralelogramo: ");
-			scanf("%lf", &altura);
-			printf("Ingrese el lado del paralelogramo: ");
-			scanf("%lf", &lado);
+            mostrarResultado(area, perimetro);
+            break;
 
-			area = areaParalelogramo(base, altura);
-			perimetro = perimetroParalelogramo(base, lado);
+        case 2: // Paralelogramo
+            registrarBitacora(usuario, "Paralelogramo");
+            printf("Ingrese la base del paralelogramo: ");
+            scanf("%lf", &base);
+            printf("Ingrese la altura del paralelogramo: ");
+            scanf("%lf", &altura);
+            printf("Ingrese el lado del paralelogramo: ");
+            scanf("%lf", &lado);
 
-			mostrarResultado(area, perimetro);
-			break;
+            area = areaParalelogramo(base, altura);
+            perimetro = perimetroParalelogramo(base, lado);
 
-		case 3: // Cuadrado
-			printf("Ingrese el lado del cuadrado: ");
-			scanf("%lf", &lado);
+            mostrarResultado(area, perimetro);
+            break;
 
-			area = areaCuadrado(lado);
-			perimetro = perimetroCuadrado(lado);
+        case 3: // Cuadrado
+            registrarBitacora(usuario, "Cuadrado");
+            printf("Ingrese el lado del cuadrado: ");
+            scanf("%lf", &lado);
 
-			mostrarResultado(area, perimetro);
-			break;
+            area = areaCuadrado(lado);
+            perimetro = perimetroCuadrado(lado);
 
-		case 4: // Rectángulo
-			printf("Ingrese la longitud del rectángulo: ");
-			scanf("%lf", &longitud);
-			printf("Ingrese el ancho del rectángulo: ");
-			scanf("%lf", &altura);
+            mostrarResultado(area, perimetro);
+            break;
 
-			area = areaRectangulo(longitud, altura);
-			perimetro = perimetroRectangulo(longitud, altura);
+        case 4: // Rectángulo
+            registrarBitacora(usuario, "Rectángulo");
+            printf("Ingrese la longitud del rectángulo: ");
+            scanf("%lf", &longitud);
+            printf("Ingrese el ancho del rectángulo: ");
+            scanf("%lf", &altura);
 
-			mostrarResultado(area, perimetro);
-			break;
+            area = areaRectangulo(longitud, altura);
+            perimetro = perimetroRectangulo(longitud, altura);
 
-		case 5: // Rombo
-			printf("Ingrese la diagonal mayor del rombo: ");
-			scanf("%lf", &diagonalM);
-			printf("Ingrese la diagonal menor del rombo: ");
-			scanf("%lf", &diagonalm);
-			printf("Ingrese el lado del rombo: ");
-			scanf("%lf", &lado);
+            mostrarResultado(area, perimetro);
+            break;
 
-			area = areaRombo(diagonalM, diagonalm);
-			perimetro = perimetroRombo(lado);
+        case 5: // Rombo
+            registrarBitacora(usuario, "Rombo");
+            printf("Ingrese la diagonal mayor del rombo: ");
+            scanf("%lf", &diagonalM);
+            printf("Ingrese la diagonal menor del rombo: ");
+            scanf("%lf", &diagonalm);
+            printf("Ingrese el lado del rombo: ");
+            scanf("%lf", &lado);
 
-			mostrarResultado(area, perimetro);
-			break;
+            area = areaRombo(diagonalM, diagonalm);
+            perimetro = perimetroRombo(lado);
 
-		case 6: // Trapecio
-			printf("Ingrese la base mayor del trapecio: ");
-			scanf("%lf", &baseM);
-			printf("Ingrese la base menor del trapecio: ");
-			scanf("%lf", &basem);
-			printf("Ingrese la altura del trapecio: ");
-			scanf("%lf", &altura);
-			printf("Ingrese un lado no paralelo del trapecio: ");
-			scanf("%lf", &lado);
-			printf("Ingrese el otro lado no paralelo: ");
-			scanf("%lf", &lado1);
+            mostrarResultado(area, perimetro);
+            break;
 
-			area = areaTrapecio(baseM, basem, altura);
-			perimetro = perimetroTrapecio(lado, lado1, baseM, basem);
+        case 6: // Trapecio
+            registrarBitacora(usuario, "Trapecio");
+            printf("Ingrese la base mayor del trapecio: ");
+            scanf("%lf", &baseM);
+            printf("Ingrese la base menor del trapecio: ");
+            scanf("%lf", &basem);
+            printf("Ingrese la altura del trapecio: ");
+            scanf("%lf", &altura);
+            printf("Ingrese un lado no paralelo del trapecio: ");
+            scanf("%lf", &lado);
+            printf("Ingrese el otro lado no paralelo: ");
+            scanf("%lf", &lado1);
 
-			mostrarResultado(area, perimetro);
-			break;
+            area = areaTrapecio(baseM, basem, altura);
+            perimetro = perimetroTrapecio(lado, lado1, baseM, basem);
 
-		case 7: // Círculo
-			printf("Ingrese el radio del círculo: ");
-			scanf("%lf", &radio);
+            mostrarResultado(area, perimetro);
+            break;
 
-			area = areaCirculo(radio);
-			perimetro = perimetroCirculo(radio);
+        case 7: // Círculo
+            registrarBitacora(usuario, "Círculo");
+            printf("Ingrese el radio del círculo: ");
+            scanf("%lf", &radio);
 
-			mostrarResultado(area, perimetro);
-			break;
+            area = areaCirculo(radio);
+            perimetro = perimetroCirculo(radio);
 
-		case 8: // Polígono regular
-			printf("Ingrese el número de lados del polígono: ");
-			scanf("%d", &numeroLados);
-			printf("Ingrese la longitud de un lado del polígono: ");
-			scanf("%lf", &lado);
+            mostrarResultado(area, perimetro);
+            break;
 
-			area = areaPoligonoRegular(lado, numeroLados);
-			perimetro = perimetroPoligonoRegular(lado, numeroLados);
+        case 8: // Polígono regular
+            registrarBitacora(usuario, "Polígono regular");
+            printf("Ingrese el número de lados del polígono: ");
+            scanf("%d", &numeroLados);
+            printf("Ingrese la longitud de un lado del polígono: ");
+            scanf("%lf", &lado);
 
-			mostrarResultado(area, perimetro);
-			break;
+            area = areaPoligonoRegular(lado, numeroLados);
+            perimetro = perimetroPoligonoRegular(lado, numeroLados);
 
-		case 9: // Cubo
-			printf("Ingrese la longitud del lado del cubo: ");
-			scanf("%lf", &longitud);
+            mostrarResultado(area, perimetro);
+            break;
 
-			superficie = superficieCubo(longitud);
-			volumen = volumenCubo(longitud);
+        case 9: // Cubo
+            registrarBitacora(usuario, "Cubo");
+            printf("Ingrese la longitud del lado del cubo: ");
+            scanf("%lf", &longitud);
 
-			mostrarResultado3D(superficie, volumen);
-			break;
+            superficie = superficieCubo(longitud);
+            volumen = volumenCubo(longitud);
 
-		case 10: // Cuboide
-			printf("Ingrese la longitud del cuboide: ");
-			scanf("%lf", &longitud);
-			printf("Ingrese el ancho del cuboide: ");
-			scanf("%lf", &ancho);
-			printf("Ingrese la altura del cuboide: ");
-			scanf("%lf", &alto);
+            mostrarResultado3D(superficie, volumen);
+            break;
 
-			superficie = superficieCuboide(longitud, ancho, alto);
-			volumen = volumenCuboide(longitud, ancho, alto);
+        case 10: // Cuboide
+            registrarBitacora(usuario, "Cuboide");
+            printf("Ingrese la longitud del cuboide: ");
+            scanf("%lf", &longitud);
+            printf("Ingrese el ancho del cuboide: ");
+            scanf("%lf", &ancho);
+            printf("Ingrese la altura del cuboide: ");
+            scanf("%lf", &alto);
 
-			mostrarResultado3D(superficie, volumen);
-			break;
+            superficie = superficieCuboide(longitud, ancho, alto);
+            volumen = volumenCuboide(longitud, ancho, alto);
 
-		case 11: // Cilindro recto
-			printf("Ingrese el radio del cilindro: ");
-			scanf("%lf", &radio);
-			printf("Ingrese la altura del cilindro: ");
-			scanf("%lf", &altura);
+            mostrarResultado3D(superficie, volumen);
+            break;
 
-			superficie = superficieCilindro(radio, altura);
-			volumen = volumenCilindro(radio, altura);
+        case 11: // Cilindro recto
+            registrarBitacora(usuario, "Cilindro recto");
+            printf("Ingrese el radio del cilindro: ");
+            scanf("%lf", &radio);
+            printf("Ingrese la altura del cilindro: ");
+            scanf("%lf", &altura);
 
-			mostrarResultado3D(superficie, volumen);
-			break;
+            superficie = superficieCilindro(radio, altura);
+            volumen = volumenCilindro(radio, altura);
 
-		case 12: // Esfera
-			printf("Ingrese el radio de la esfera: ");
-			scanf("%lf", &radio);
+            mostrarResultado3D(superficie, volumen);
+            break;
 
-			superficie = superficieEsfera(radio);
-			volumen = volumenEsfera(radio);
+        case 12: // Esfera
+            registrarBitacora(usuario, "Esfera");
+            printf("Ingrese el radio de la esfera: ");
+            scanf("%lf", &radio);
 
-			mostrarResultado3D(superficie, volumen);
-			break;
+            superficie = superficieEsfera(radio);
+            volumen = volumenEsfera(radio);
 
-		case 13: // Cono circular recto
-			printf("Ingrese el radio del cono: ");
-			scanf("%lf", &radio);
-			printf("Ingrese la altura del cono: ");
-			scanf("%lf", &altura);
+            mostrarResultado3D(superficie, volumen);
+            break;
 
-			superficie = superficieCono(radio, altura);
-			volumen = volumenCono(radio, altura);
+        case 13: // Cono circular recto
+            registrarBitacora(usuario, "Cono circular recto");
+            printf("Ingrese el radio del cono: ");
+            scanf("%lf", &radio);
+            printf("Ingrese la altura del cono: ");
+            scanf("%lf", &altura);
 
-			mostrarResultado3D(superficie, volumen);
-			break;
+            superficie = superficieCono(radio, altura);
+            volumen = volumenCono(radio, altura);
 
-		default:
-			printf("Figura no válida.\n");
-			break;
-	}
+            mostrarResultado3D(superficie, volumen);
+            break;
+
+        default:
+            printf("Figura no válida.\n");
+            break;
+    }
 }
 
 void mostrarResultado(double area, double perimetro) {
-	printf("El área es: %.2f\n", area);
-	printf("El perímetro es: %.2f\n", perimetro);
+    printf("El área es: %.2f\n", area);
+    printf("El perímetro es: %.2f\n", perimetro);
 }
 
 void mostrarResultado3D(double superficie, double volumen) {
-	printf("Superficie: %.2lf\n", superficie);
-	printf("Volumen: %.2lf\n", volumen);
+    printf("Superficie: %.2lf\n", superficie);
+    printf("Volumen: %.2lf\n", volumen);
 }

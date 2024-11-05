@@ -1,0 +1,4 @@
+
+2024/11/05 15:43:39: marcos – Ingreso exitoso al sistema
+2024/11/05 15:43:47: marcos – Cuadrado
+2024/11/05 15:43:54: marcos – Salida del sistema
